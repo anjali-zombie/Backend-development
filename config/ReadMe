@@ -1,6 +1,6 @@
-# 💰 Finance Dashboard Backend (Django REST Framework)
+#Finance Dashboard Backend (Django REST Framework)
 
-## 📌 Overview
+# Overview
 
 This project is a backend system for a **Finance Dashboard Application** built using **Django REST Framework** and **PostgreSQL**.
 
@@ -10,7 +10,7 @@ While building this, the focus was on keeping things simple, well-structured, an
 
 ---
 
-## 🚀 Tech Stack
+#  Tech Stack
 
 * Python
 * Django
@@ -20,9 +20,9 @@ While building this, the focus was on keeping things simple, well-structured, an
 
 ---
 
-## 🧠 Features
+# Features
 
-### 👤 User & Role Management
+# User & Role Management
 
 The system uses a custom user model with three roles:
 
@@ -53,7 +53,7 @@ Each record includes:
 
 ---
 
-### 🔎 Filtering Support
+# Filtering Support
 
 Records can be filtered using query parameters. For example:
 
@@ -67,7 +67,7 @@ This makes it easier to retrieve specific data without overloading the frontend.
 
 ---
 
-### 📊 Dashboard & Analytics APIs
+# Dashboard & Analytics APIs
 
 The backend provides aggregated data for dashboard use:
 
@@ -86,7 +86,7 @@ GET /api/transactions/dashboard/
 
 ---
 
-## 🔐 Access Control (RBAC)
+# Access Control (RBAC)
 
 Role-based access control is implemented throughout the system:
 
@@ -104,7 +104,7 @@ Access control is enforced at multiple levels:
 
 ---
 
-## 🧪 Validation & Error Handling
+# Validation & Error Handling
 
 Basic validation and error handling have been added to make the API more reliable:
 
@@ -128,7 +128,7 @@ Example error response:
 
 ---
 
-## 🗄️ Data Persistence
+# Data Persistence
 
 The application uses **PostgreSQL** for storing data.
 
@@ -141,7 +141,7 @@ This setup allows efficient queries and supports aggregation for dashboard featu
 
 ---
 
-## ⚙️ Setup Instructions
+# Setup Instructions
 
 1. Clone the repository
 
