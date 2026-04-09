@@ -1,0 +1,247 @@
+# 💰 Finance Dashboard Backend (Django REST Framework)
+
+## 📌 Overview
+
+This project is a backend system for a **Finance Dashboard Application** built using **Django REST Framework** and **PostgreSQL**.
+
+The goal of this project is to design a clean and reliable backend that can handle financial records, enforce role-based access control, and provide useful summary data for a frontend dashboard.
+
+While building this, the focus was on keeping things simple, well-structured, and close to real-world backend practices.
+
+---
+
+## 🚀 Tech Stack
+
+* Python
+* Django
+* Django REST Framework (DRF)
+* PostgreSQL
+* JWT Authentication (SimpleJWT)
+
+---
+
+## 🧠 Features
+
+### 👤 User & Role Management
+
+The system uses a custom user model with three roles:
+
+* **Viewer** → Can only view data
+* **Analyst** → Can view and create records
+* **Admin** → Full access, including managing users
+
+Authentication is handled using JWT, and access is controlled using role-based permissions.
+
+---
+
+### 💸 Financial Records Management
+
+Users can perform standard operations on financial records:
+
+* Create records
+* View records (with role-based restrictions)
+* Update records (restricted)
+* Delete records (restricted)
+
+Each record includes:
+
+* Amount
+* Type (income or expense)
+* Category
+* Date
+* Notes
+
+---
+
+### 🔎 Filtering Support
+
+Records can be filtered using query parameters. For example:
+
+```
+/api/transactions/records/?category=food
+/api/transactions/records/?type=expense
+/api/transactions/records/?start_date=2026-01-01&end_date=2026-04-01
+```
+
+This makes it easier to retrieve specific data without overloading the frontend.
+
+---
+
+### 📊 Dashboard & Analytics APIs
+
+The backend provides aggregated data for dashboard use:
+
+* Total income
+* Total expenses
+* Net balance
+* Category-wise breakdown
+* Recent transactions
+* Monthly trends
+
+Endpoint:
+
+```
+GET /api/transactions/dashboard/
+```
+
+---
+
+## 🔐 Access Control (RBAC)
+
+Role-based access control is implemented throughout the system:
+
+| Role    | What they can do      |
+| ------- | --------------------- |
+| Viewer  | Only read data        |
+| Analyst | Read + create records |
+| Admin   | Full access           |
+
+Access control is enforced at multiple levels:
+
+* API level using custom permissions
+* Query level to restrict data visibility
+* Object level to prevent unauthorized updates or deletes
+
+---
+
+## 🧪 Validation & Error Handling
+
+Basic validation and error handling have been added to make the API more reliable:
+
+* Ensures amounts are positive
+* Validates required fields
+* Returns appropriate HTTP status codes:
+
+  * 200 → Success
+  * 201 → Created
+  * 400 → Bad request
+  * 401 → Unauthorized
+  * 403 → Forbidden
+
+Example error response:
+
+```json
+{
+  "amount": ["Amount must be greater than 0"]
+}
+```
+
+---
+
+## 🗄️ Data Persistence
+
+The application uses **PostgreSQL** for storing data.
+
+* Django ORM is used for database operations
+* A relational structure is followed:
+
+  * One user → Multiple financial records
+
+This setup allows efficient queries and supports aggregation for dashboard features.
+
+---
+
+## ⚙️ Setup Instructions
+
+1. Clone the repository
+
+git clone <your-repo-url>
+cd <project-folder>
+
+2. Create and activate a virtual environment
+
+python -m venv venv
+source venv/bin/activate
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Configure the database
+
+Update settings.py with your PostgreSQL credentials:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'finance_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234a',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+5. Apply migrations
+
+python manage.py makemigrations
+python manage.py migrate
+
+6. Run the server
+
+python manage.py runserver
+
+
+Authentication:
+
+To log in:
+
+POST /api/login/
+
+
+Use the returned token in requests:
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc1NzQ5Nzg4LCJpYXQiOjE3NzU3NDk0ODgsImp0aSI6Ijg4Zjk5MTU2ZWJmYTQ1MzliOTM5NDMxNDM3YzFlNzc2IiwidXNlcl9pZCI6IjEifQ.FpxKXc4JyvG3>
+
+
+
+
+ API Endpoints:
+
+ Auth:
+
+- `POST /api/login/`
+
+ Users:
+
+- `GET /api/users/`
+- `POST /api/users/`
+
+ Financial Records:
+
+- `GET /api/transactions/records/`
+- `POST /api/transactions/records/`
+- `PUT /api/transactions/records/{id}/`
+- `DELETE /api/transactions/records/{id}/`
+
+ Dashboard:
+
+- `GET /api/transactions/dashboard/`
+- `GET /api/transactions/summary/`
+
+
+Design Decisions & Assumptions:
+
+- Each financial record belongs to one user
+- Users can only access their own data unless they are admins
+- Transactions are treated as independent entries
+- Categories are kept simple (no separate model for now)
+
+Possible Improvements:
+
+If extended further, the following could be added:
+
+- Pagination
+- Swagger/OpenAPI documentation
+- Docker support
+- Unit tests
+- More advanced filtering
+
+
+Final Thoughts:
+
+This project focuses on building a clean and functional backend with proper structure, access control, and data handling.
+
+The goal was not to overcomplicate things, but to demonstrate a solid understanding of backend development fundamentals in a practical way.
+
+
